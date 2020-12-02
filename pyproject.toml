@@ -1,0 +1,31 @@
+[tool.poetry]
+name = "scripts"
+version = "0.1.0"
+description = "Automatic generation of B3 lattice summaries"
+authors = ["Felix Andreas <felix.andreas95@googlemail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+# eleganttools = { git = "https://github.com/nobeam/eleganttools.git", branch = "master" }
+eleganttools = { path = "../eleganttools", develop = true }
+matplotlib = "^3.3.3"
+numpy = "^1.19.4"
+Jinja2 = "^2.11.2"
+tomlkit = "^0.7.0"
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.2"
+mypy = "^0.790"
+black = { version = "^20.8b1", allow-prereleases = true }
+pylint = "^2.6.0"
+rope = "^0.18.0"
+isort = "^5.6.4"
+
+[tool.poetry.scripts]
+index = "scripts.pages:index"
+summary = "scripts.pages:summary"
+plots = "scripts.plots:main"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

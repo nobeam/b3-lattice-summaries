@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>B3 Prototypes</title>
+    <link rel="stylesheet" href="https://unpkg.com/mvp.css">
+</head>
+
+<body>
+    <header>
+        <nav>
+            <h1>Bessy III lattices</h1>
+            <a href="https://www.github.com/nobeam/b3/">Github ↗</a>
+        </nav>
+        <h1>Automatically generated summaries of BESSY III prototype lattices</h1>
+    </header>
+    <main>
+        <hr>
+        <section>
+            <header>
+                <h2>List of lattices</h2>
+                <p>click on summary to view full lattice summary</p>
+            </header>
+            {% for lattice in info.lattices %}
+            <aside>
+                <h2>{{lattice.title}}</h2>
+                <h4>{{lattice.author}}</h4>
+                <p>{{lattice.description}}</p>
+                <p>
+                    <a href="https://github.com/nobeam/b3-lattices/blob/main/{{lattice.file}}">
+                        Lattice file
+                    </a>
+                </p>
+                <p><a href="summary/{{lattice['name']}}.html"><em>Summary ↗</em></a></p>
+            </aside>
+            {% endfor %}
+        </section>
+    </main>
+
+    <footer>
+        <hr>
+        <p>
+            Made by <a href="https://github.com/nobeam" target="_blank">NoBeam ↗</a><br>
+            <img alt="@nobeam" width="32" height="32"
+                src="https://avatars3.githubusercontent.com/u/60696788?s=60&amp;v=4">
+        </p>
+    </footer>
+</body>
+
+</html>

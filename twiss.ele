@@ -1,0 +1,31 @@
+! TWISS OUTPUT FULL
+! 3cm slices of everything takes about 24 seconds calculation time
+&divide_elements
+    name = *, type = *DRIF*, maximum_length = 0.03,
+&end
+&divide_elements
+    name = *, type = *KQUAD*, maximum_length = 0.03,
+&end
+&divide_elements
+    name = *, type = *KSEXT*, maximum_length = 0.03,
+&end
+&divide_elements
+    name = *, type = *CSBEND*, maximum_length = 0.03,
+&end
+
+&run_setup
+    lattice = <lattice>,
+    p_central_mev = <energy>,
+    default_order = 2,
+    concat_order = 0,
+&end
+
+&twiss_output
+    filename = <filename>,
+    statistics = 1,
+    radiation_integrals = 1,
+    higher_order_chromaticity = 1,
+    higher_order_chromaticity_points = 12,
+    higher_order_chromaticity_range = 4e-02,
+    compute_driving_terms = 1,
+&end

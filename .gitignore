@@ -1,0 +1,11 @@
+# Byte-compiled / optimized / DLL files / Test cache
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+
+# output
+dist
+elegant_output
+
