@@ -1,22 +1,22 @@
-.PHONY: build deploy twiss plots index summary 
+# NOTE: this file is out of date use doit instead (https://pydoit.org/)
+.PHONY: build deploy elegant_simulation elegant_data index summary
 
-build: index summary
-	echo build ...
+build: index elegant_summary elegant_data
 
 index:
 	poetry run index
 
-summary: plots
-	poetry run summary
+elegant_summary: elegant_data
+	poetry run elegant_summary
 
-plots: twiss
-	poetry run plots
+elegant_data: elegant_simulation
+	poetry run elegant_data
 
-twiss: $(patsubst lattices/%.lte, elegant_output/%.twi, $(wildcard lattices/*.lte))
+elegant_simulation: $(patsubst lattices/%.lte, _simulations/elegant/%.twi, $(wildcard lattices/*.lte))
 
-elegant_output/%.twi: lattices/%.lte
-	mkdir -p elegant_output
-	elegant twiss.ele -macro=energy=2500,lattice=$<,filename=$@ > /dev/null
+_simulations/elegant/%.twi: lattices/%.lte elegant/twiss.ele
+	mkdir -p _simulations/elegant
+	elegant elegant/twiss.ele -macro=energy=2500,lattice=$<,filename=$@ > /dev/null
 
 .ONESHELL:
 deploy: build

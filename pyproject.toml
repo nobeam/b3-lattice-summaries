@@ -23,8 +23,8 @@ isort = "^5.6.4"
 
 [tool.poetry.scripts]
 index = "scripts.pages:index"
-summary = "scripts.pages:summary"
-plots = "scripts.plots:main"
+elegant_summary = "scripts.pages:elegant_summary"
+elegant_data = "scripts.elegant:main"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

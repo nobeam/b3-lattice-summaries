@@ -12,28 +12,28 @@
     <header>
         <nav>
             <h1>Bessy III lattices</h1>
-            <a href="https://www.github.com/nobeam/b3/">Github ↗</a>
+            <a href="https://www.github.com/nobeam/b3/">Source Code ↗</a>
         </nav>
         <h1>Automatically generated summaries of BESSY III prototype lattices</h1>
+        <p>click on summary to view full lattice summary</p>
     </header>
+    <hr>
     <main>
-        <hr>
         <section>
-            <header>
-                <h2>List of lattices</h2>
-                <p>click on summary to view full lattice summary</p>
-            </header>
             {% for lattice in info.lattices %}
             <aside>
-                <h2>{{lattice.title}}</h2>
-                <h4>{{lattice.author}}</h4>
-                <p>{{lattice.description}}</p>
+                <h2>{{ lattice.title }}</h2>
+                <h4>{{ lattice.author }}</h4>
+                <p>{{ lattice.description }}</p>
                 <p>
-                    <a href="https://github.com/nobeam/b3-lattices/blob/main/{{lattice.file}}">
+                    <a href="https://github.com/nobeam/b3-lattices/blob/main/{{ lattice['name'] }}.lte">
                         Lattice file
                     </a>
                 </p>
-                <p><a href="summary/{{lattice['name']}}.html"><em>Summary ↗</em></a></p>
+                <p>
+                    <a href="summary/{{ lattice['name'] }}/elegant"><em>elegant summary ↗</em></a>
+                    <!-- <a href="summary/{{ lattice['name'] }}/apace"><em>apace summary ↗</em></a> -->
+                </p>
             </aside>
             {% endfor %}
         </section>

@@ -1,4 +1,3 @@
-! TWISS OUTPUT FULL
 ! 3cm slices of everything takes about 24 seconds calculation time
 &divide_elements
     name = *, type = *DRIF*, maximum_length = 0.03,
