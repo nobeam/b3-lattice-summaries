@@ -1,7 +1,7 @@
 # TODO: maybe it's better to use doit instead (https://pydoit.org/)
 .PHONY: build deploy simulation_elegant elegant_data index
 
-build: index summary_elegant data_elegant summary_apace data_apace
+build: index summary_elegant data_elegant summary_madx data_madx summary_apace data_apace
 
 index:
 	poetry run index
@@ -18,6 +18,12 @@ _simulations/elegant/%.twi: lattices/%.lte elegant/twiss.ele
 	mkdir -p _simulations/elegant
 	# TODO: make energy variable!
 	elegant elegant/twiss.ele -macro=energy=2500,lattice=$<,filename=$@ > /dev/null
+
+summary_madx: data_madx
+	poetry run summary_madx
+
+data_madx:  scripts/data_madx.py
+	poetry run data_madx
 
 summary_apace: data_apace
 	poetry run summary_apace
