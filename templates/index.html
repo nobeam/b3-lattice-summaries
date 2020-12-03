@@ -27,9 +27,21 @@
                 <h4>{{ lattice.author }}</h4>
                 <p>{{ lattice.description }}</p>
                 <p>
+                    {% if "lte" in lattice.formats %}
                     <a href="https://github.com/nobeam/b3-lattices/blob/main/{{ lattice['name'] }}.lte">
-                        Lattice file
+                        .lte
                     </a>
+                    {% endif %}
+                    {% if "madx" in lattice.formats %}
+                    <a href="https://github.com/nobeam/b3-lattices/blob/main/{{ lattice['name'] }}.madx">
+                        .madx
+                    </a>
+                    {% endif %}
+                    {% if "json" in lattice.formats %}
+                    <a href="https://github.com/nobeam/b3-lattices/blob/main/{{ lattice['name'] }}.json">
+                        .json
+                    </a>
+                    {% endif %}
                 </p>
                 <p>
                     {% if "lte" in lattice.formats %}
