@@ -14,7 +14,8 @@
             <h1>Bessy III lattices</h1>
             <a href="https://www.github.com/nobeam/b3/">Source Code ↗</a>
         </nav>
-        <h1>Automatically generated summaries of BESSY III prototype lattices</h1>
+        <h1>⚠️ 🚧 Work in progress 🚧 ⚠️</h1>
+        <h2>Automatically generated summaries of BESSY III prototype lattices</h2>
         <p>click on summary to view full lattice summary</p>
     </header>
     <hr>
@@ -31,8 +32,12 @@
                     </a>
                 </p>
                 <p>
+                    {% if "lte" in lattice.formats %}
                     <a href="summary/{{ lattice['name'] }}/elegant"><em>elegant summary ↗</em></a>
-                    <!-- <a href="summary/{{ lattice['name'] }}/apace"><em>apace summary ↗</em></a> -->
+                    {% endif %}
+                    {% if "json" in lattice.formats %}
+                    <a href="summary/{{ lattice['name'] }}/apace"><em>apace summary ↗</em></a>
+                    {% endif %}
                 </p>
             </aside>
             {% endfor %}

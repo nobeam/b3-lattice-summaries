@@ -6,12 +6,15 @@ authors = ["Felix Andreas <felix.andreas95@googlemail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
-# eleganttools = { git = "https://github.com/nobeam/eleganttools.git", branch = "master" }
-eleganttools = { path = "../eleganttools", develop = true }
+eleganttools = { git = "https://github.com/nobeam/eleganttools.git", branch = "master" }
+# eleganttools = { path = "../eleganttools", develop = true }
+# apace = { git = "https://github.com/andreasfelix/apace.git", branch = "master" }
+apace = { path = "../../andreasfelix/apace", develop = true }
 matplotlib = "^3.3.3"
 numpy = "^1.19.4"
 Jinja2 = "^2.11.2"
 tomlkit = "^0.7.0"
+cpymad = "^1.6.2"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
@@ -23,8 +26,10 @@ isort = "^5.6.4"
 
 [tool.poetry.scripts]
 index = "scripts.pages:index"
-elegant_summary = "scripts.pages:elegant_summary"
-elegant_data = "scripts.elegant:main"
+summary_elegant = "scripts.pages:summary_elegant"
+summary_apace = "scripts.pages:summary_apace"
+data_elegant = "scripts.data_elegant:main"
+data_apace = "scripts.data_apace:main"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

@@ -8,9 +8,9 @@ from matplotlib import rcParams
 rcParams["font.family"] = "sans-serif"
 rcParams["font.sans-serif"] = ["Inter"]
 import matplotlib.pyplot as plt
-
 import tomlkit
-from eleganttools import SDDS, draw_lattice
+from eleganttools import SDDS, draw_lattice, axis_labels
+
 from . import info, summary_dir, elegant_dir, simulation_elegant_dir
 
 tables_template = tomlkit.loads((elegant_dir / "twiss_tables.toml").read_text())
@@ -20,8 +20,13 @@ def main():
     lattices = info["lattices"]
     n_lattices = len(lattices)
 
+    print(f"\033[1;36m[Generating elegant data 📈]\033[0m")
     for i, lattice in enumerate(lattices):
         name = lattice["name"]
+        if "lte" not in lattice["formats"]:
+            print(f"\033[1m[{i+1}/{n_lattices}] Skipping {name} (no lte file)\033[0m")
+            continue
+
         output_dir = summary_dir / name / "elegant"
         output_dir.mkdir(exist_ok=True, parents=True)
 
@@ -29,13 +34,13 @@ def main():
         twiss_data_path = (simulation_elegant_dir / name).with_suffix(".twi")
         twiss_data = SDDS(twiss_data_path).as_dict()
 
-        # print(f"    Run elegant simulation 🐌")
+        # print(f"    Run elegant simulation ⚙️")
 
-        print(f"    Generate tables 📝")
+        print(f"    Generating tables 📝")
         with (output_dir / "twiss_tables.json").open("w") as file:
             json.dump(twiss_tables(twiss_data), file)
 
-        print(f"    Generate twiss plot 📊")
+        print(f"    Generating twiss plot 📊")
         twiss_plot(twiss_data).savefig(output_dir / "twiss.svg")
 
         print(f"    Generate chroma plot 📊")
@@ -57,12 +62,15 @@ def twiss_tables(data):
 
 
 def twiss_plot(data):
+    eta_x_scale = 100
     fig, ax = plt.subplots(figsize=(10, 4))
     ax.plot(data["s"], data["betax"], "#EF4444")
     ax.plot(data["s"], data["betay"], "#1D4ED8")
-    ax.plot(data["s"], 100 * data["etax"], "#10B981")
+    ax.plot(data["s"], eta_x_scale * data["etax"], "#10B981")
     ax.grid(color="#E5E7EB", linestyle="--", linewidth=1)
     draw_lattice(ax, data)
+    axis_labels(ax, eta_x_scale=eta_x_scale)
+    fig.tight_layout()
     return fig
 
 

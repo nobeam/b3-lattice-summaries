@@ -1,11 +1,21 @@
-from pathlib import Path
-
 from scripts import test_output_dir
-from scripts.elegant import chroma_plot, simulation_elegant_dir
+from scripts.data_elegant import twiss_plot, chroma_plot, simulation_elegant_dir
 from eleganttools import SDDS
 
+import pytest
 
-def test_chroma_plot():
-    name = "5bend_20p_LongBend-TG-TGRB"
-    data = SDDS((simulation_elegant_dir / name).with_suffix(".twi")).as_dict()
-    chroma_plot(data).savefig((test_output_dir / name).with_suffix(".svg"))
+
+@pytest.fixture(scope="session")
+def elegant_twiss_data():
+    name = "5bend_20p_LongBend-TG-TGRB.twi"
+    return SDDS((simulation_elegant_dir / name)).as_dict()
+
+
+def test_twiss_plot(elegant_twiss_data):
+    fig = twiss_plot(elegant_twiss_data)
+    fig.savefig(test_output_dir / "twiss_elegant.svg")
+
+
+def test_chroma_plot(elegant_twiss_data):
+    fig = chroma_plot(elegant_twiss_data)
+    fig.savefig(test_output_dir / "chroma_elegant.svg")
