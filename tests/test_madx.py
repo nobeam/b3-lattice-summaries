@@ -15,6 +15,5 @@ def twiss_data():
 
 
 def test_twiss_plot(twiss_data):
-    breakpoint()
     fig = twiss_plot(twiss_data)
-    fig.savefig(test_output_dir / "twiss_apace.svg")
+    fig.savefig(test_output_dir / "twiss_madx.svg")

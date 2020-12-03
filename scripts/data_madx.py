@@ -22,14 +22,14 @@ def main():
             print(f"\033[1m[{i+1}/{n_lattices}] Skipping {name} (no madx file)\033[0m")
             continue
 
-        print(f"\033[1m[{i+1}/{n_lattices}] Run madx simulation ⚙ {name}\033[0m")
+        print(f"\033[1m[{i+1}/{n_lattices}] Building {name}\033[0m")
+
+        print(f"    Run madx simulation ⚙ {name}")
         lattice_path = (lattices_dir / name).with_suffix(".madx")
         twiss_data = twiss_simulation(lattice_path, lattice["energy"])
 
         output_dir = summary_dir / name / "madx"
         output_dir.mkdir(exist_ok=True, parents=True)
-
-        print(f"\033[1m[{i+1}/{n_lattices}] Building {name}\033[0m")
 
         print(f"    Generating tables 📝")
         with (output_dir / "twiss_tables.json").open("w") as file:
