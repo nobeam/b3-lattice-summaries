@@ -1,7 +1,14 @@
 <template>
-  <Header />
-  <router-view></router-view>
-  <Footer />
+  <div>
+    <div
+      class="p-4 bg-warning-100 text-warning-900 text-lg flex justify-center"
+    >
+      🚧 Work in progress 🚧
+    </div>
+    <Header />
+    <router-view></router-view>
+    <Footer />
+  </div>
 </template>
 
 <script>
