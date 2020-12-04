@@ -1,0 +1,66 @@
+{
+    "lattices": [
+        {
+            "title": "5BA 20p Reference",
+            "name": "kuske_5bend_20p_reference",
+            "author": "Bettina Kuske",
+            "formats": [
+                "lte",
+                "madx",
+                "json"
+            ],
+            "energy": 2500,
+            "description": "Referenzl\u00f6sung (kleines alpha)\n"
+        },
+        {
+            "title": "5BA 20p Long Bend TGRB",
+            "name": "kuske_5bend_20p_longbend-tg-tgrb",
+            "author": "Bettina Kuske",
+            "formats": [
+                "lte"
+            ],
+            "energy": 2500,
+            "description": "5bend MBA lattice, 20 Perioden, langer Dipol mit transversem Gradienten und Gradienten \nim reverse bend, sprich versetzter Quadrupol\n"
+        },
+        {
+            "title": "Hwang 4 Sexts",
+            "name": "hwang_4sexts",
+            "author": "Ji-Gwang Hwang",
+            "formats": [
+                "lte"
+            ],
+            "energy": 2500,
+            "description": ""
+        },
+        {
+            "title": "Hwang 5 Sexts",
+            "name": "hwang_5sexts",
+            "author": "Ji-Gwang Hwang",
+            "formats": [
+                "lte"
+            ],
+            "energy": 2500,
+            "description": ""
+        },
+        {
+            "title": "BESSY II Standard User 2019",
+            "name": "b2_stduser_2019_05_07",
+            "author": "HZB",
+            "formats": [
+                "json"
+            ],
+            "energy": 1700,
+            "description": "Standard User lattice of the BESSY II storage ring\n(Here as reference and to test stuff!)\n"
+        },
+        {
+            "title": "BESSY II Design Lattice 1996",
+            "name": "b2_design_lattice_1996",
+            "author": "HZB",
+            "formats": [
+                "json"
+            ],
+            "energy": 1700,
+            "description": "Fully symmetric Design Lattice of the BESSY II storage ring\n(Here as reference and to test stuff!)\n"
+        }
+    ]
+}
