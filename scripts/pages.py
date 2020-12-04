@@ -8,6 +8,7 @@ def index():
     env = Environment(loader=FileSystemLoader(searchpath=templates_dir))
     template = env.get_template("index.html")
     (dist_dir / "index.html").write_text(template.render(info=info))
+    (dist_dir / "index.json").write_text(json.dumps(info))
 
 
 def summary_elegant():

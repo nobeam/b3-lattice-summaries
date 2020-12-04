@@ -50,11 +50,11 @@ def main():
 def twiss_tables(data):
     """Returns the relevant elgant data as dict"""
     data["energy"] = data["pCentral"] / 3913.90152459 * 2
-    data["periodicity"] = math.nan
-    data["cell_length"] = math.nan
-    data["cell_angle"] = math.nan
-    data["cell_angle_degree"] = math.nan
-    data["circumference"] = math.nan
+    data["periodicity"] = 0
+    data["cell_length"] = 0
+    data["cell_angle"] = 0
+    data["cell_angle_degree"] = 0
+    data["circumference"] = 0
     return {
         table_name: [(name, data[key]) for name, key in table_template]
         for table_name, table_template in tables_template.items()

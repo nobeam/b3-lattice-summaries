@@ -1,5 +1,5 @@
 # TODO: maybe it's better to use doit instead (https://pydoit.org/)
-.PHONY: build deploy simulation_elegant elegant_data index
+.PHONY: build deploy 
 
 build: index summary_elegant data_elegant summary_madx data_madx summary_apace data_apace
 
