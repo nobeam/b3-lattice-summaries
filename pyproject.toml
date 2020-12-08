@@ -24,15 +24,6 @@ pylint = "^2.6.0"
 rope = "^0.18.0"
 isort = "^5.6.4"
 
-[tool.poetry.scripts]
-index = "scripts.pages:index"
-summary_elegant = "scripts.pages:summary_elegant"
-data_elegant = "scripts.data_elegant:main"
-summary_madx = "scripts.pages:summary_madx"
-data_madx = "scripts.data_madx:main"
-summary_apace = "scripts.pages:summary_apace"
-data_apace = "scripts.data_apace:main"
-
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"

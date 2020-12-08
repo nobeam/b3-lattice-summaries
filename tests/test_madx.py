@@ -1,7 +1,7 @@
 import pytest
 import apace as ap
 
-from scripts import test_output_dir, info, lattices_dir
+from scripts import test_output_dir, info, lattices_generated_dir
 from scripts.data_madx import twiss_plot, twiss_simulation
 
 
@@ -10,7 +10,7 @@ def twiss_data():
     # TODO: make info addressable by name
     # name = "kuske_5bend_20p_reference.madx"
     lattice = info["lattices"][0]
-    lattice_path = (lattices_dir / lattice["name"]).with_suffix(".madx")
+    lattice_path = (lattices_generated_dir / lattice["name"]).with_suffix(".madx")
     return twiss_simulation(lattice_path, lattice["energy"])
 
 

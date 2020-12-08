@@ -1,64 +1,92 @@
 import json
 from operator import itemgetter
-import math
 
 import numpy as np
-from matplotlib import rcParams
 
-rcParams["font.family"] = "sans-serif"
-rcParams["font.sans-serif"] = ["Inter"]
 import matplotlib.pyplot as plt
-import tomlkit
-from eleganttools import SDDS, draw_lattice, axis_labels
+from eleganttools import SDDS, draw_elements, axis_labels
 
-from . import info, summary_dir, elegant_dir, simulation_elegant_dir
-
-tables_template = tomlkit.loads((elegant_dir / "twiss_tables.toml").read_text())
+from . import simulation_elegant_dir
 
 
-def main():
-    lattices = info["lattices"]
-    n_lattices = len(lattices)
+def results(lattice, output_dir):
+    namespace = lattice["namespace"]
+    name = lattice["name"]
+    print(f"\033[1mGenerating results for {namespace}/{name}\033[0m")
 
-    print(f"\033[1;36m[Generating elegant data 📈]\033[0m")
-    for i, lattice in enumerate(lattices):
-        name = lattice["name"]
-        if "lte" not in lattice["formats"]:
-            print(f"\033[1m[{i+1}/{n_lattices}] Skipping {name} (no lte file)\033[0m")
-            continue
+    output_dir.mkdir(exist_ok=True, parents=True)
 
-        output_dir = summary_dir / name / "elegant"
-        output_dir.mkdir(exist_ok=True, parents=True)
+    twiss_data_path = (simulation_elegant_dir / namespace / name).with_suffix(".twi")
+    twiss_data = SDDS(twiss_data_path).as_dict()
 
-        print(f"\033[1m[{i+1}/{n_lattices}] Building {name}\033[0m")
-        twiss_data_path = (simulation_elegant_dir / name).with_suffix(".twi")
-        twiss_data = SDDS(twiss_data_path).as_dict()
+    print(f"    Generating tables 📝")
+    with (output_dir / "twiss_tables.json").open("w") as file:
+        json.dump(twiss_tables(twiss_data), file)
 
-        # print(f"    Run elegant simulation ⚙️")
+    print(f"    Generating twiss plot 📊")
+    twiss_plot(twiss_data).savefig(output_dir / "twiss.svg")
 
-        print(f"    Generating tables 📝")
-        with (output_dir / "twiss_tables.json").open("w") as file:
-            json.dump(twiss_tables(twiss_data), file)
-
-        print(f"    Generating twiss plot 📊")
-        twiss_plot(twiss_data).savefig(output_dir / "twiss.svg")
-
-        print(f"    Generate chroma plot 📊")
-        chroma_plot(twiss_data).savefig(output_dir / "chroma.svg")
+    print(f"    Generate chroma plot 📊")
+    chroma_plot(twiss_data).savefig(output_dir / "chroma.svg")
 
 
 def twiss_tables(data):
     """Returns the relevant elgant data as dict"""
-    data["energy"] = data["pCentral"] / 3913.90152459 * 2
-    data["periodicity"] = 0
-    data["cell_length"] = 0
-    data["cell_angle"] = 0
-    data["cell_angle_degree"] = 0
-    data["circumference"] = 0
-    return {
-        table_name: [(name, data[key]) for name, key in table_template]
-        for table_name, table_template in tables_template.items()
-    }
+    return [
+        [
+            "Global Machine & Lattice Parameter",
+            [
+                [
+                    ["Energy / MeV", data["pCentral"] / 3913.90152459 * 2],
+                    ["Cell length / m", 0],
+                    ["Cell Angle / rad", 0],
+                    ["Cell Angle / degree	", 0],
+                    ["Circumference / m", 0],
+                ],
+                [
+                    ["Natural Emittance / rad m", data["ex0"]],
+                    ["Energy loss per turn $U_0$ / Mev", data["U0"]],
+                    ["Momentum compaction $\\alpha_c$", data["alphac"]],
+                    ["$\\alpha_{c2}$", data["alphac2"]],
+                    ["$J_{\\delta}$", data["Jdelta"]],
+                    ["$\\tau_{\\delta}$", data["taudelta"]],
+                ],
+            ],
+        ],
+        [
+            "Optical Functions",
+            ["twiss.svg"],
+        ],
+        [
+            "Detailed Lattice Parameter",
+            [
+                [
+                    ["$Q_x$", "nux"],
+                    ["$dnux/dp$", "dnux/dp"],
+                    ["$dnux/dp 2$", "dnux/dp2"],
+                    ["$dnux/dp 3$", "dnux/dp3"],
+                    ["max($\\beta_x$)", "betaxMax"],
+                    ["min($\\beta_x$)", "betaxMin"],
+                    ["mean($\\beta_x$)", "betaxAve"],
+                    ["max($\\eta_x$)", "etaxMax"],
+                    ["$J_x$", "Jx"],
+                    ["$\\tau_x$", "taux"],
+                ],
+                [
+                    ["$Q_y$", "nuy"],
+                    ["$dnuy/dp$", "dnuy/dp"],
+                    ["$dnuy/dp 2$", "dnuy/dp2"],
+                    ["$dnuy/dp 3$", "dnuy/dp3"],
+                    ["max($\\beta_y$)", "betayMax"],
+                    ["min($\\beta_y$)", "betayMin"],
+                    ["mean($\\beta_y$)", "betayAve"],
+                    ["max($\\eta_y$)", "etayMax"],
+                    ["$J_y$", "Jy"],
+                    ["$\\tau_y$", "tauy"],
+                ],
+            ],
+        ],
+    ]
 
 
 def twiss_plot(data):
@@ -68,7 +96,7 @@ def twiss_plot(data):
     ax.plot(data["s"], data["betay"], "#1D4ED8")
     ax.plot(data["s"], eta_x_scale * data["etax"], "#10B981")
     ax.grid(color="#E5E7EB", linestyle="--", linewidth=1)
-    draw_lattice(ax, data)
+    draw_elements(ax, data)
     axis_labels(ax, eta_x_scale=eta_x_scale)
     fig.tight_layout()
     return fig

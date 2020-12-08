@@ -1,14 +1,15 @@
 import json
 from jinja2 import Environment, FileSystemLoader
 
-from . import info, templates_dir, dist_dir, summary_dir
+from . import info, templates_dir, results_dir, summary_dir
 
 
 def index():
-    env = Environment(loader=FileSystemLoader(searchpath=templates_dir))
-    template = env.get_template("index.html")
-    (dist_dir / "index.html").write_text(template.render(info=info))
-    (dist_dir / "index.json").write_text(json.dumps(info))
+    # env = Environment(loader=FileSystemLoader(searchpath=templates_dir))
+    # template = env.get_template("index.html")
+    # (results_dir / "index.html").write_text(template.render(info=info))
+    # TODO: put information like namespace machine family version
+    (results_dir / "index.json").write_text(json.dumps(info))
 
 
 def summary_elegant():
