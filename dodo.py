@@ -131,9 +131,9 @@ def task_madx_results():
 
 
 def task_apace_results():
-    from scripts.data_madx import results
+    from scripts.data_apace import results
 
-    for lattice in lattices["madx"]:
+    for lattice in lattices["apace"]:
         namespace, name = itemgetter("namespace", "name")(lattice)
         output_dir = results_dir / namespace / name / "apace"
         targets = [
