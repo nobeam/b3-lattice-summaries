@@ -104,6 +104,14 @@ optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 
 [[package]]
+name = "cloudpickle"
+version = "1.6.0"
+description = "Extended pickling support for Python objects"
+category = "main"
+optional = false
+python-versions = ">=3.5"
+
+[[package]]
 name = "colorama"
 version = "0.4.4"
 description = "Cross-platform colored terminal text."
@@ -113,7 +121,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 
 [[package]]
 name = "cpymad"
-version = "1.6.2"
+version = "1.6.3"
 description = "Cython binding to MAD-X"
 category = "main"
 optional = false
@@ -139,6 +147,19 @@ python-versions = "*"
 six = "*"
 
 [[package]]
+name = "doit"
+version = "0.33.1"
+description = "doit - Automation Tool"
+category = "main"
+optional = false
+python-versions = ">=3.5"
+
+[package.dependencies]
+cloudpickle = "*"
+macfsevents = {version = "*", markers = "sys_platform == \"darwin\""}
+pyinotify = {version = "*", markers = "sys_platform == \"linux\""}
+
+[[package]]
 name = "eleganttools"
 version = "0.1"
 description = "Python tools for post processing elegant simulation data"
@@ -155,7 +176,7 @@ numpy = "*"
 type = "git"
 url = "https://github.com/nobeam/eleganttools.git"
 reference = "master"
-resolved_reference = "fb89ab9d23a123d21e8858746248b0a12283214d"
+resolved_reference = "087df501b398bfb4635445b96df1acbee08d57dc"
 
 [[package]]
 name = "fastjsonschema"
@@ -228,7 +249,7 @@ regex = ["regex"]
 
 [[package]]
 name = "latticejson"
-version = "0.1.3"
+version = "0.1.4"
 description = "A JSON based lattice file format"
 category = "main"
 optional = false
@@ -247,6 +268,14 @@ description = "A fast and thorough lazy object proxy."
 category = "dev"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
+
+[[package]]
+name = "macfsevents"
+version = "0.8.1"
+description = "Thread-based interface to file system observation primitives."
+category = "main"
+optional = false
+python-versions = "*"
 
 [[package]]
 name = "markupsafe"
@@ -381,6 +410,14 @@ description = "C parser in Python"
 category = "main"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
+
+[[package]]
+name = "pyinotify"
+version = "0.9.6"
+description = "Linux filesystem events monitoring"
+category = "main"
+optional = false
+python-versions = "*"
 
 [[package]]
 name = "pylint"
@@ -527,7 +564,7 @@ python-versions = "*"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "0cb2bf7b24043eb8ae8e5969fb8acbc7bcd0c78cbafe2b73e6bbd32901efbd8d"
+content-hash = "9fbd7f188b40f8361c681a5ff4b18f92a0901c26cbf6316fc7adc358cf8957e0"
 
 [metadata.files]
 apace = []
@@ -590,45 +627,56 @@ click = [
     {file = "click-7.1.2-py2.py3-none-any.whl", hash = "sha256:dacca89f4bfadd5de3d7489b7c8a566eee0d3676333fbb50030263894c38c0dc"},
     {file = "click-7.1.2.tar.gz", hash = "sha256:d2b5255c7c6349bc1bd1e59e08cd12acbbd63ce649f2588755783aa94dfb6b1a"},
 ]
+cloudpickle = [
+    {file = "cloudpickle-1.6.0-py3-none-any.whl", hash = "sha256:3a32d0eb0bc6f4d0c57fbc4f3e3780f7a81e6fee0fa935072884d58ae8e1cc7c"},
+    {file = "cloudpickle-1.6.0.tar.gz", hash = "sha256:9bc994f9e9447593bd0a45371f0e7ac7333710fcf64a4eb9834bf149f4ef2f32"},
+]
 colorama = [
     {file = "colorama-0.4.4-py2.py3-none-any.whl", hash = "sha256:9f47eda37229f68eee03b24b9748937c7dc3868f906e8ba69fbcbdd3bc5dc3e2"},
     {file = "colorama-0.4.4.tar.gz", hash = "sha256:5941b2b48a20143d2267e95b1c2a7603ce057ee39fd88e7329b0c292aa16869b"},
 ]
 cpymad = [
-    {file = "cpymad-1.6.2-cp27-cp27m-macosx_10_7_x86_64.whl", hash = "sha256:2d19c2a32991a9fde1585795c46d299b27624637bae3fcc9457e31f9ca874d80"},
-    {file = "cpymad-1.6.2-cp27-cp27m-manylinux1_i686.whl", hash = "sha256:95d907496733043aacb991870e7b9f65cc18d4943e61f88eb3ac3e5adba1703c"},
-    {file = "cpymad-1.6.2-cp27-cp27m-manylinux1_x86_64.whl", hash = "sha256:74cf92671ce52e2b4ef525279e33481faf32ed27e1bed49383c8db2fd6cd3baa"},
-    {file = "cpymad-1.6.2-cp27-cp27m-win32.whl", hash = "sha256:5ab4162e4393d0efc68050d199b542bac42d60404d8e08f35040178de444aa82"},
-    {file = "cpymad-1.6.2-cp27-cp27m-win_amd64.whl", hash = "sha256:c83f29d52a8ec7f9e64f0afeb3848b9e051705fd32946d6204319e1fa51cd814"},
-    {file = "cpymad-1.6.2-cp27-cp27mu-manylinux1_i686.whl", hash = "sha256:fdbad25f47bbd3904413566474c72b21a47de568fa7bedd463abecaef3ac5c49"},
-    {file = "cpymad-1.6.2-cp27-cp27mu-manylinux1_x86_64.whl", hash = "sha256:8da47cbc8012aebb8eec259f6420ac13bc6d2f7b36a376dcec4d483a4a7146b5"},
-    {file = "cpymad-1.6.2-cp35-cp35m-macosx_10_6_x86_64.whl", hash = "sha256:22c88c5225ab8a34ab9b374bde6bba15853792bc4310b6642b44788b59bb3328"},
-    {file = "cpymad-1.6.2-cp35-cp35m-manylinux1_i686.whl", hash = "sha256:1a98b7d6cd26eee3f42412a787f2bf490ff05d92f682abe9fe780aff46624b1b"},
-    {file = "cpymad-1.6.2-cp35-cp35m-manylinux1_x86_64.whl", hash = "sha256:d175be9ed858a7baae8e82152438a0f1cc4c13dc0662255ea1767e39fd3b07d3"},
-    {file = "cpymad-1.6.2-cp35-cp35m-win32.whl", hash = "sha256:643a566d1cc800dcef8683bf090248eb79c5cf43386fd181fe3394af5b844543"},
-    {file = "cpymad-1.6.2-cp35-cp35m-win_amd64.whl", hash = "sha256:e0a82dc9797a5a517e9cc267d381ed7fa16be6d54f9276823f78271b716ee629"},
-    {file = "cpymad-1.6.2-cp36-cp36m-macosx_10_9_x86_64.whl", hash = "sha256:8c42ebabeca6e2ba9580aadd7569810e92cf8d4c06701a8fc81291d829ca4ef6"},
-    {file = "cpymad-1.6.2-cp36-cp36m-manylinux1_i686.whl", hash = "sha256:5a16751c788de8b4dfc86416cd1442de3ae5adf11da9803a6a320ff024027325"},
-    {file = "cpymad-1.6.2-cp36-cp36m-manylinux1_x86_64.whl", hash = "sha256:a0b4212a68cf77c99ce8c5aa6c8d525408f74591c50f4e7b2e44b9cb782f05b4"},
-    {file = "cpymad-1.6.2-cp36-cp36m-win32.whl", hash = "sha256:a94bd35b7286b004b18fc5d9b92b6f541af0462acdbde7cff68274b900292023"},
-    {file = "cpymad-1.6.2-cp36-cp36m-win_amd64.whl", hash = "sha256:773e55b29095f86ed8755eb258c195213436cdbbc4dc85934cb8b2c4e740547f"},
-    {file = "cpymad-1.6.2-cp37-cp37m-macosx_10_9_x86_64.whl", hash = "sha256:76cd75cd2745fe7e6c4d50ab878829da44bf3e558e9f4532a260d07d1ccd11e3"},
-    {file = "cpymad-1.6.2-cp37-cp37m-manylinux1_i686.whl", hash = "sha256:24ee1f9218c17ee87038edacbe4addb24073e5fe9ba9e93d354be40582ce53b5"},
-    {file = "cpymad-1.6.2-cp37-cp37m-manylinux1_x86_64.whl", hash = "sha256:97225f34b9c62a9307cc28422f4357b740cc1c04c6872d0210455adcd40d9846"},
-    {file = "cpymad-1.6.2-cp37-cp37m-win32.whl", hash = "sha256:90ce0d7024582e7bfb1ee7d1a9e7d5baba01256847592b40091d50c842897405"},
-    {file = "cpymad-1.6.2-cp37-cp37m-win_amd64.whl", hash = "sha256:d879e9d852418c074b1298a7ee9359f619de50ace98080767d1404487441e54c"},
-    {file = "cpymad-1.6.2-cp38-cp38-macosx_10_9_x86_64.whl", hash = "sha256:0707e4d353162ca578ffe268f7065153ff0f43b2ce6e954fe58029e16f7098db"},
-    {file = "cpymad-1.6.2-cp38-cp38-manylinux1_i686.whl", hash = "sha256:2f5d4bad3d850a4491ef8e74c1a1906766439bf0c292f7c3cbe2492687c1251d"},
-    {file = "cpymad-1.6.2-cp38-cp38-manylinux1_x86_64.whl", hash = "sha256:b801aa5d4dfcaa5b3451206ec8ae900cd086b4047bd6fba913d27eddc9af96fb"},
-    {file = "cpymad-1.6.2-cp38-cp38-win32.whl", hash = "sha256:a9191f4762641946d12fc845128f0389063c04e59ed851f47a12527c66132eed"},
-    {file = "cpymad-1.6.2-cp38-cp38-win_amd64.whl", hash = "sha256:ee229b6f8ace35bc139a17723677b3dbf60e011da2e33affbcf1bce3e9745b43"},
-    {file = "cpymad-1.6.2-cp39-cp39-manylinux1_i686.whl", hash = "sha256:0fb9c1006353c2a60fdf7823e0c9b0a57f618f09fb95f530a1a40aed3f4bfccc"},
-    {file = "cpymad-1.6.2-cp39-cp39-manylinux1_x86_64.whl", hash = "sha256:944e6fbe826c2313a1d88220bf7bd794a7f40be54dd66391bdd199678beff040"},
-    {file = "cpymad-1.6.2.tar.gz", hash = "sha256:7a2897562a24650ce77a21156a8667233bb476740bb217bfcff3af09cd38273f"},
+    {file = "cpymad-1.6.3-cp27-cp27m-macosx_10_7_x86_64.whl", hash = "sha256:0f7d31e0ecfd18304c59871219fb0aa265877fd098418594d282cd57a91efb7f"},
+    {file = "cpymad-1.6.3-cp27-cp27m-manylinux1_i686.whl", hash = "sha256:d133d325a4c29734fe336999b5adf9e2063b00cf2fe4e20ddf2b5feda33fdb92"},
+    {file = "cpymad-1.6.3-cp27-cp27m-manylinux1_x86_64.whl", hash = "sha256:39f7b4028f0df3adc86acfee8bf427ea2049dc5d2142d5bd0b50005a87808aa3"},
+    {file = "cpymad-1.6.3-cp27-cp27m-win32.whl", hash = "sha256:b9f927da1ae2750c4a9c3e4c799b4a15144b69bab4c176543f4c8950ae7cf785"},
+    {file = "cpymad-1.6.3-cp27-cp27m-win_amd64.whl", hash = "sha256:6458f503f69b95a647126217ecb292b5a27239b88f6bc304aa9190d2d252d5d6"},
+    {file = "cpymad-1.6.3-cp27-cp27mu-manylinux1_i686.whl", hash = "sha256:b0e3af051e88f9194427b8becebffb237effa0dba04a5177f0ece800fb823462"},
+    {file = "cpymad-1.6.3-cp27-cp27mu-manylinux1_x86_64.whl", hash = "sha256:556d726e1d2c4e514346c3fca98400901d1c9158d55cba510c2a881d93f2c599"},
+    {file = "cpymad-1.6.3-cp35-cp35m-macosx_10_6_x86_64.whl", hash = "sha256:686abdb2ba93f127afa7346341bf63c9470efb4901ec610de7e61dbc3c3ac8e9"},
+    {file = "cpymad-1.6.3-cp35-cp35m-manylinux1_i686.whl", hash = "sha256:ba7f1697a6edda1419bda5cdfc99b3a064223c3048e5177b5b437331babfd7e5"},
+    {file = "cpymad-1.6.3-cp35-cp35m-manylinux1_x86_64.whl", hash = "sha256:285e36b61ba9b8633645bbe0984bb4900bdadeac99e58dbf7ab0c866ddb4d903"},
+    {file = "cpymad-1.6.3-cp35-cp35m-win32.whl", hash = "sha256:5084ffd81b931cc9ca40276401bf445e425cb0eaef520148bc8be7335642b8e4"},
+    {file = "cpymad-1.6.3-cp35-cp35m-win_amd64.whl", hash = "sha256:2cf58bbd82f41e53c85c69b7edeb3a646b84e5a26337cb7506b28ad7b427345f"},
+    {file = "cpymad-1.6.3-cp36-cp36m-macosx_10_9_x86_64.whl", hash = "sha256:17b1158eea18962676c9c41786bcf226f12bbd06794b2223dac252a5dede31f1"},
+    {file = "cpymad-1.6.3-cp36-cp36m-manylinux1_i686.whl", hash = "sha256:8867c016fedd906b7fae537b4523a6169632e353d9b7b210839acf72dfb798fe"},
+    {file = "cpymad-1.6.3-cp36-cp36m-manylinux1_x86_64.whl", hash = "sha256:fdd2735d7b223fe499e25726d187a593876f43cb0b314e677a32b59af40058a8"},
+    {file = "cpymad-1.6.3-cp36-cp36m-win32.whl", hash = "sha256:3b99cc43f44a8116c798539e5ff8fc5bf3245fd03a1873d762b8e98a0fb7a8db"},
+    {file = "cpymad-1.6.3-cp36-cp36m-win_amd64.whl", hash = "sha256:6862bf7592439f3e30315a6f8d62455a8476509f86cd0693e0fa0f81f7ee2e09"},
+    {file = "cpymad-1.6.3-cp37-cp37m-macosx_10_9_x86_64.whl", hash = "sha256:ec98e7e6c5a84667682c7f4a02477979e8714df2caba986908e723b7603b3986"},
+    {file = "cpymad-1.6.3-cp37-cp37m-manylinux1_i686.whl", hash = "sha256:813bcd9b44a0a92d5d434b60400b2b1293ca0f1e836ebfc86f764c5085019b1d"},
+    {file = "cpymad-1.6.3-cp37-cp37m-manylinux1_x86_64.whl", hash = "sha256:c8c4f17c3bf33485466c88984393c37e3fc0f64b1890ca33194edf04bb4e65f3"},
+    {file = "cpymad-1.6.3-cp37-cp37m-win32.whl", hash = "sha256:2248c963e84a56f0f4bbeaebe08b5da47ff6832c7587527dedd8f821e73c1c34"},
+    {file = "cpymad-1.6.3-cp37-cp37m-win_amd64.whl", hash = "sha256:f0d0ef26c9a8d380a8ca06a3ae59c766956eed948b216f46b8f67b515a7b62a2"},
+    {file = "cpymad-1.6.3-cp38-cp38-macosx_10_9_x86_64.whl", hash = "sha256:91e316f477f834bc18aeb09f7839a3f0c89a1aa2e27c305651bd87ca358e30e0"},
+    {file = "cpymad-1.6.3-cp38-cp38-manylinux1_i686.whl", hash = "sha256:c61794a21e62589d8b01a74f9283f4c29cfb0bd2932ef7e203087caa36fc6294"},
+    {file = "cpymad-1.6.3-cp38-cp38-manylinux1_x86_64.whl", hash = "sha256:75cd89f627e6861021f8e254749ee5993d9f397692791555ca4cdccee93f30b5"},
+    {file = "cpymad-1.6.3-cp38-cp38-win32.whl", hash = "sha256:4e96acef01e8ab72c3b27d424ba050b2c3b1f8708bd6180d8bbe466e79689b2f"},
+    {file = "cpymad-1.6.3-cp38-cp38-win_amd64.whl", hash = "sha256:3593ca69afb4d65e7d6b96ed06128afa2ac7fd129ce688cc58747e8b2ca176ff"},
+    {file = "cpymad-1.6.3-cp39-cp39-macosx_10_9_x86_64.whl", hash = "sha256:1ff717f82c3c8062e27f86d0f8e5c9422e680e28ccb7d67e0c29921211833b1d"},
+    {file = "cpymad-1.6.3-cp39-cp39-manylinux1_i686.whl", hash = "sha256:7b496e35ae1a2a0c93c9248c26e10708fc117f3c2544bf6fa9ec8189e48f97f0"},
+    {file = "cpymad-1.6.3-cp39-cp39-manylinux1_x86_64.whl", hash = "sha256:aaa795f2c75be7dd678b771c34fa2585a4c505a39fff8c04a946bd4fe35dd2a9"},
+    {file = "cpymad-1.6.3-cp39-cp39-win32.whl", hash = "sha256:e5f826b12b01ee17f54020b453cc2b67cdae8edbee8eca88d650e753fd84dad0"},
+    {file = "cpymad-1.6.3-cp39-cp39-win_amd64.whl", hash = "sha256:12322919d07a4c16399ef8129dbb45a7379597daf81f2c587fde2f1d5262708f"},
+    {file = "cpymad-1.6.3.tar.gz", hash = "sha256:2caf16e2b51059126e9a9ad69b9bcae70c149002573e276bec43b2f150570d41"},
 ]
 cycler = [
     {file = "cycler-0.10.0-py2.py3-none-any.whl", hash = "sha256:1d8a5ae1ff6c5cf9b93e8811e581232ad8920aeec647c37316ceac982b08cb2d"},
     {file = "cycler-0.10.0.tar.gz", hash = "sha256:cd7b2d1018258d7247a71425e9f26463dfb444d411c39569972f4ce586b0c9d8"},
+]
+doit = [
+    {file = "doit-0.33.1-py3-none-any.whl", hash = "sha256:211fc0de3fd9ee31e5c4ccb36bc1a4054b5c4a4a44f915ca413896155b684bfa"},
+    {file = "doit-0.33.1.tar.gz", hash = "sha256:37c3b35c2151647b968b2af24481112b2f813c30f695366db0639d529190a143"},
 ]
 eleganttools = []
 fastjsonschema = [
@@ -686,8 +734,8 @@ lark-parser = [
     {file = "lark_parser-0.11.1-py2.py3-none-any.whl", hash = "sha256:8b747e1f544dcc2789e3feaddd2a50c6a73bed69d62e9c69760c1e1f7d23495f"},
 ]
 latticejson = [
-    {file = "LatticeJSON-0.1.3-py3-none-any.whl", hash = "sha256:ad6ff5c47a203473e7232ffc36630c15664b2e0e990edaf64067b151b9131b51"},
-    {file = "LatticeJSON-0.1.3.tar.gz", hash = "sha256:ce3f9f3347d793c4c7571072b954d881312b7cba2aa5223f94681896042ea84f"},
+    {file = "LatticeJSON-0.1.4-py3-none-any.whl", hash = "sha256:29bfe2fefa0a4070b42b0ac653950931a453bbd5360abf2944d7eb88323d969b"},
+    {file = "LatticeJSON-0.1.4.tar.gz", hash = "sha256:640e0df5adefd934e023a1ec77a0fb8366b87e9f8fcc09d38f6151c2f8b07c53"},
 ]
 lazy-object-proxy = [
     {file = "lazy-object-proxy-1.4.3.tar.gz", hash = "sha256:f3900e8a5de27447acbf900b4750b0ddfd7ec1ea7fbaf11dfa911141bc522af0"},
@@ -711,6 +759,9 @@ lazy-object-proxy = [
     {file = "lazy_object_proxy-1.4.3-cp38-cp38-manylinux1_x86_64.whl", hash = "sha256:a6ae12d08c0bf9909ce12385803a543bfe99b95fe01e752536a60af2b7797c62"},
     {file = "lazy_object_proxy-1.4.3-cp38-cp38-win32.whl", hash = "sha256:5541cada25cd173702dbd99f8e22434105456314462326f06dba3e180f203dfd"},
     {file = "lazy_object_proxy-1.4.3-cp38-cp38-win_amd64.whl", hash = "sha256:59f79fef100b09564bc2df42ea2d8d21a64fdcda64979c0fa3db7bdaabaf6239"},
+]
+macfsevents = [
+    {file = "MacFSEvents-0.8.1.tar.gz", hash = "sha256:1324b66b356051de662ba87d84f73ada062acd42b047ed1246e60a449f833e10"},
 ]
 markupsafe = [
     {file = "MarkupSafe-1.1.1-cp27-cp27m-macosx_10_6_intel.whl", hash = "sha256:09027a7803a62ca78792ad89403b1b7a73a01c8cb65909cd876f7fcebd79b161"},
@@ -891,6 +942,9 @@ py = [
 pycparser = [
     {file = "pycparser-2.20-py2.py3-none-any.whl", hash = "sha256:7582ad22678f0fcd81102833f60ef8d0e57288b6b5fb00323d101be910e35705"},
     {file = "pycparser-2.20.tar.gz", hash = "sha256:2d475327684562c3a96cc71adf7dc8c4f0565175cf86b6d7a404ff4c771f15f0"},
+]
+pyinotify = [
+    {file = "pyinotify-0.9.6.tar.gz", hash = "sha256:9c998a5d7606ca835065cdabc013ae6c66eb9ea76a00a1e3bc6e0cfe2b4f71f4"},
 ]
 pylint = [
     {file = "pylint-2.6.0-py3-none-any.whl", hash = "sha256:bfe68f020f8a0fece830a22dd4d5dddb4ecc6137db04face4c3420a46a52239f"},

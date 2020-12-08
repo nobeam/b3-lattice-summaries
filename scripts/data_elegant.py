@@ -10,11 +10,9 @@ from . import simulation_elegant_dir
 
 
 def results(lattice, output_dir):
-    namespace = lattice["namespace"]
-    name = lattice["name"]
-    print(f"\033[1mGenerating results for {namespace}/{name}\033[0m")
-
     output_dir.mkdir(exist_ok=True, parents=True)
+    name, namespace = itemgetter("name", "namespace")(lattice)
+    print(f"\033[1m[elegant] Generating results for {namespace}/{name}\033[0m")
 
     twiss_data_path = (simulation_elegant_dir / namespace / name).with_suffix(".twi")
     twiss_data = SDDS(twiss_data_path).as_dict()
@@ -90,7 +88,10 @@ def twiss_tables(data):
 
 
 def twiss_plot(data):
-    eta_x_scale = 100
+    from math import floor, log10
+
+    factor = np.max(data["betax"]) / np.max(data["betay"])
+    eta_x_scale = 10 ** floor(log10(factor))
     fig, ax = plt.subplots(figsize=(10, 4))
     ax.plot(data["s"], data["betax"], "#EF4444")
     ax.plot(data["s"], data["betay"], "#1D4ED8")
@@ -98,6 +99,7 @@ def twiss_plot(data):
     ax.grid(color="#E5E7EB", linestyle="--", linewidth=1)
     draw_elements(ax, data)
     axis_labels(ax, eta_x_scale=eta_x_scale)
+    ax.set_xlim(0, 20)  # TODO: use cell length!
     fig.tight_layout()
     return fig
 

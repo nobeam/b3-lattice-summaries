@@ -1,38 +1,21 @@
 import json
+from operator import itemgetter
 
 import apace as ap
 import numpy as np
 import matplotlib.pyplot as plt
 
-from . import info, summary_dir, lattices_generated_dir
+from . import lattices_generated_dir
 
 
-def main():
-    lattices = info["lattices"]
-    n_lattices = len(lattices)
-
-    print(f"\033[1;36m[Generating apace data 📈]\033[0m")
-    for i, lattice in enumerate(lattices):
-        name = lattice["name"]
-        if "json" not in lattice["formats"]:
-            print(f"\033[1m[{i+1}/{n_lattices}] Skipping {name} (no json file)\033[0m")
-            continue
-
-        print(f"\033[1m[{i+1}/{n_lattices}] \033[0m", end="")
-        data(lattice)
-
-
-def data(lattice):
-    name = lattice["name"]
-    print(f"\033[1mGenerating data for {name}\033[0m")
-
-    output_dir = summary_dir / name / "apace"
+def results(lattice, output_dir):
     output_dir.mkdir(exist_ok=True, parents=True)
+    name, namespace = itemgetter("name", "namespace")(lattice)
+    print(f"\033[1m[apace] Generating results for {namespace}/{name}\033[0m")
 
     print(f"    Compute simulation data")
-    lattice_obj = ap.Lattice.from_file(
-        (lattices_generated_dir / name).with_suffix(".json")
-    )
+    lattice_path = (lattices_generated_dir / namespace / name).with_suffix(".json")
+    lattice_obj = ap.Lattice.from_file(lattice_path)
     twiss_data = ap.Twiss(lattice_obj, energy=lattice["energy"], steps_per_meter=100)
 
     print(f"    Generating tables 📝")
@@ -116,7 +99,9 @@ def twiss_plot(twiss: ap.Twiss):
     factor = np.max(twiss.beta_x) / np.max(twiss.eta_x)
     eta_x_scale = 10 ** floor(log10(factor))
     plot_twiss(ax, twiss, scales={"eta_x": eta_x_scale})
-    draw_elements(ax, twiss.lattice, labels=twiss.lattice.length < 30)
+    cell = twiss.lattice.tree[0]
+    draw_elements(ax, cell, labels=cell.length < 30)
+    ax.set_xlim(0, cell.length)
     fig.tight_layout()
     return fig
 

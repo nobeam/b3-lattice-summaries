@@ -1,37 +1,21 @@
 import json
+from operator import itemgetter
 
 from cpymad.madx import Madx
 import numpy as np
 import matplotlib.pyplot as plt
 
-from . import info, summary_dir, lattices_generated_dir
+from . import lattices_generated_dir
 
 
-def main():
-    lattices = info["lattices"]
-    n_lattices = len(lattices)
-
-    print(f"\033[1;36m[Generating madx data 📈]\033[0m")
-    for i, lattice in enumerate(lattices):
-        name = lattice["name"]
-        if "madx" not in lattice["formats"]:
-            print(f"\033[1m[{i+1}/{n_lattices}] Skipping {name} (no madx file)\033[0m")
-            continue
-
-        print(f"\033[1m[{i+1}/{n_lattices}] \033[0m", end="")
-        data(lattice)
-
-
-def data(lattice):
-    name = lattice["name"]
-    print(f"\033[1mGenerating data for {name}\033[0m")
+def results(lattice, output_dir):
+    output_dir.mkdir(exist_ok=True, parents=True)
+    name, namespace = itemgetter("name", "namespace")(lattice)
+    print(f"\033[1m[MAD-X] Generating results for {namespace}/{name}\033[0m")
 
     print(f"    Run madx simulation ⚙ {name}")
-    lattice_path = (lattices_generated_dir / name).with_suffix(".madx")
+    lattice_path = (lattices_generated_dir / namespace / name).with_suffix(".madx")
     twiss_data = twiss_simulation(lattice_path, lattice["energy"])
-
-    output_dir = summary_dir / name / "madx"
-    output_dir.mkdir(exist_ok=True, parents=True)
 
     print(f"    Generating tables 📝")
     with (output_dir / "twiss_tables.json").open("w") as file:
@@ -108,5 +92,6 @@ def twiss_plot(twiss):
     ax.plot(twiss["s"], twiss["bety"], "#1D4ED8")
     ax.plot(twiss["s"], eta_x_scale * twiss["dx"], "#10B981")
     ax.grid(color="#E5E7EB", linestyle="--", linewidth=1)
+    ax.set_xlim(0, 20)  # TODO: use cell length!
     fig.tight_layout()
     return fig
