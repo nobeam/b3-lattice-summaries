@@ -84,7 +84,7 @@ def task_lattice_info():
 
 
 def task_elegant_results():
-    from scripts.data_elegant import results
+    from scripts.data_elegant import results, __file__ as python_file
 
     for lattice in lattices["elegant"]:
         namespace, name = itemgetter("namespace", "name")(lattice)
@@ -102,13 +102,13 @@ def task_elegant_results():
             "name": f"{namespace}/{name}",
             "actions": [(results, (lattice, output_dir))],
             "targets": targets,
-            "file_dep": [twi_file],
+            "file_dep": [python_file, twi_file],
             "clean": True,
         }
 
 
 def task_madx_results():
-    from scripts.data_madx import results
+    from scripts.data_madx import results, __file__ as python_file
 
     for lattice in lattices["madx"]:
         namespace, name = itemgetter("namespace", "name")(lattice)
@@ -125,13 +125,13 @@ def task_madx_results():
             "name": f"{namespace}/{name}",
             "actions": [(results, (lattice, output_dir))],
             "targets": targets,
-            "file_dep": [lattice_file],
+            "file_dep": [python_file, lattice_file],
             "clean": True,
         }
 
 
 def task_apace_results():
-    from scripts.data_apace import results
+    from scripts.data_apace import results, __file__ as python_file
 
     for lattice in lattices["apace"]:
         namespace, name = itemgetter("namespace", "name")(lattice)
@@ -150,6 +150,6 @@ def task_apace_results():
             "name": f"{namespace}/{name}",
             "actions": [(results, (lattice, output_dir))],
             "targets": targets,
-            "file_dep": [lattice_file],
+            "file_dep": [python_file, lattice_file],
             "clean": True,
         }
