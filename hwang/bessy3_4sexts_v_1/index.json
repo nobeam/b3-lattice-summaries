@@ -1,1 +1,1 @@
-{"title": "BESSY 3 Design Hwang 4 Sexts", "authors": ["Ji-Gwang Hwang"], "namespace": "hwang", "name": "bessy3_4sexts_v_1", "energy": 2500, "labels": ["combined function bends"], "simulations": ["elegant", "madx"], "description": ""}
+{"namespace": "hwang", "name": "bessy3_4sexts_v_1", "machine": "bessy3", "title": "BESSY 3 Design Hwang 4 Sexts", "authors": ["Ji-Gwang Hwang"], "energy": 2500, "labels": ["combined function bends"], "simulations": ["elegant", "madx"], "description": ""}
