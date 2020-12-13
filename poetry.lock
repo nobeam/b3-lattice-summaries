@@ -166,17 +166,15 @@ description = "Python tools for post processing elegant simulation data"
 category = "main"
 optional = false
 python-versions = ">=3.6"
-develop = false
+develop = true
 
 [package.dependencies]
 matplotlib = "*"
 numpy = "*"
 
 [package.source]
-type = "git"
-url = "https://github.com/nobeam/eleganttools.git"
-reference = "master"
-resolved_reference = "087df501b398bfb4635445b96df1acbee08d57dc"
+type = "directory"
+url = "../eleganttools"
 
 [[package]]
 name = "fastjsonschema"
@@ -564,7 +562,7 @@ python-versions = "*"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "9fbd7f188b40f8361c681a5ff4b18f92a0901c26cbf6316fc7adc358cf8957e0"
+content-hash = "18b3562e4672337d51159d061f5ca524af0cf863dee6fe4b7e0c2ad1fd89ad9b"
 
 [metadata.files]
 apace = []

@@ -5,7 +5,7 @@ from cpymad.madx import Madx
 import numpy as np
 import matplotlib.pyplot as plt
 
-from . import lattices_generated_dir
+from . import FIG_SIZE, lattices_generated_dir
 
 
 def results(lattice, output_dir):
@@ -87,7 +87,7 @@ def twiss_plot(twiss):
 
     factor = np.max(twiss.summary.betxmax) / np.max(twiss.summary.dxmax)
     eta_x_scale = 10 ** floor(log10(factor))
-    fig, ax = plt.subplots(figsize=(10, 4))
+    fig, ax = plt.subplots(figsize=FIG_SIZE)
     ax.plot(twiss["s"], twiss["betx"], "#EF4444")
     ax.plot(twiss["s"], twiss["bety"], "#1D4ED8")
     ax.plot(twiss["s"], eta_x_scale * twiss["dx"], "#10B981")

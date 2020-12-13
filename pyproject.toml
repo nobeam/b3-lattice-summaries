@@ -6,10 +6,10 @@ authors = ["Felix Andreas <felix.andreas95@googlemail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
-eleganttools = { git = "https://github.com/nobeam/eleganttools.git", branch = "master" }
-# eleganttools = { path = "../eleganttools", develop = true }
-# apace = { git = "https://github.com/andreasfelix/apace.git", branch = "master" }
 apace = { path = "../../andreasfelix/apace", develop = true }
+eleganttools = { path = "../eleganttools", develop = true }
+# apace = { git = "https://github.com/andreasfelix/apace.git", branch = "master" }
+# eleganttools = { git = "https://github.com/nobeam/eleganttools.git", branch = "master" }
 matplotlib = "^3.3.3"
 numpy = "^1.19.4"
 Jinja2 = "^2.11.2"

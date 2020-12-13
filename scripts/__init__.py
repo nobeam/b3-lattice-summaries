@@ -21,3 +21,5 @@ elegant_dir = base_dir / "elegant"
 
 info_file = lattices_dir / "info.toml"
 info = tomlkit.loads(info_file.read_text())
+
+FIG_SIZE = 8, 4.8

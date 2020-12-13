@@ -6,7 +6,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from eleganttools import SDDS, draw_elements, axis_labels
 
-from . import simulation_elegant_dir
+from . import simulation_elegant_dir, FIG_SIZE
 
 
 def results(lattice, output_dir):
@@ -43,11 +43,11 @@ def twiss_tables(data):
                 ],
                 [
                     ["Natural Emittance / rad m", data["ex0"]],
-                    ["Energy loss per turn $U_0$ / Mev", data["U0"]],
-                    ["Momentum compaction $\\alpha_c$", data["alphac"]],
-                    ["$\\alpha_{c2}$", data["alphac2"]],
-                    ["$J_{\\delta}$", data["Jdelta"]],
-                    ["$\\tau_{\\delta}$", data["taudelta"]],
+                    ["U₀ / Mev", data["U0"]],
+                    ["ɑ", data["alphac"]],
+                    ["ɑ₂", data["alphac2"]],
+                    ["Jᵟ", data["Jdelta"]],
+                    ["τᵟ", data["taudelta"]],
                 ],
             ],
         ],
@@ -59,30 +59,34 @@ def twiss_tables(data):
             "Detailed Lattice Parameter",
             [
                 [
-                    ["$Q_x$", data["nux"]],
-                    ["$dnux/dp$", data["dnux/dp"]],
-                    ["$dnux/dp 2$", data["dnux/dp2"]],
-                    ["$dnux/dp 3$", data["dnux/dp3"]],
-                    ["max($\\beta_x$)", data["betaxMax"]],
-                    ["min($\\beta_x$)", data["betaxMin"]],
-                    ["mean($\\beta_x$)", data["betaxAve"]],
-                    ["max($\\eta_x$)", data["etaxMax"]],
-                    ["$J_x$", data["Jx"]],
-                    ["$\\tau_x$", data["taux"]],
+                    ["Qₓ", data["nux"]],
+                    ["dQₓ / dδ", data["dnux/dp"]],
+                    ["d²Qₓ / dδ²", data["dnux/dp2"]],
+                    ["d³Qₓ / dδ³", data["dnux/dp3"]],
+                    ["βₓ,ₘₐₓ / m", data["betaxMax"]],
+                    ["βₓ,ₘᵢₙ / m", data["betaxMin"]],
+                    ["βₓ,ₘₑₐₙ / m", data["betaxAve"]],
+                    ["ηₓ,ₘₐₓ / m", data["etaxMax"]],
+                    ["Jₓ", data["Jx"]],
+                    ["τₓ / s", data["taux"]],
                 ],
                 [
-                    ["$Q_y$", data["nuy"]],
-                    ["$dnuy/dp$", data["dnuy/dp"]],
-                    ["$dnuy/dp 2$", data["dnuy/dp2"]],
-                    ["$dnuy/dp 3$", data["dnuy/dp3"]],
-                    ["max($\\beta_y$)", data["betayMax"]],
-                    ["min($\\beta_y$)", data["betayMin"]],
-                    ["mean($\\beta_y$)", data["betayAve"]],
-                    ["max($\\eta_y$)", data["etayMax"]],
-                    ["$J_y$", data["Jy"]],
-                    ["$\\tau_y$", data["tauy"]],
+                    ["Qᵧ", data["nuy"]],
+                    ["dQₓ / dδ", data["dnuy/dp"]],
+                    ["d²Qₓ / dδ²", data["dnuy/dp2"]],
+                    ["d³Qₓ / dδ³", data["dnuy/dp3"]],
+                    ["βᵧ,ₘₐₓ / m", data["betayMax"]],
+                    ["βᵧ,ₘᵢₙ / m", data["betayMin"]],
+                    ["βᵧ,ₘₑₐₙ / m", data["betayAve"]],
+                    ["ηᵧ,ₘₐₓ / m", data["etayMax"]],
+                    ["Jᵧ", data["Jy"]],
+                    ["τᵧ / s", data["tauy"]],
                 ],
             ],
+        ],
+        [
+            "Chromaticity",
+            ["chroma.svg"],
         ],
     ]
 
@@ -92,14 +96,15 @@ def twiss_plot(data):
 
     factor = np.max(data["betax"]) / np.max(data["betay"])
     eta_x_scale = 10 ** floor(log10(factor))
-    fig, ax = plt.subplots(figsize=(10, 4))
+    fig, ax = plt.subplots(figsize=FIG_SIZE)
     ax.plot(data["s"], data["betax"], "#EF4444")
     ax.plot(data["s"], data["betay"], "#1D4ED8")
     ax.plot(data["s"], eta_x_scale * data["etax"], "#10B981")
     ax.grid(color="#E5E7EB", linestyle="--", linewidth=1)
+    x_min, x_max = 0, 20
     draw_elements(ax, data)
     axis_labels(ax, eta_x_scale=eta_x_scale)
-    ax.set_xlim(0, 20)  # TODO: use cell length!
+    ax.set_xlim(x_min, x_max)  # TODO: use cell length!
     fig.tight_layout()
     return fig
 
@@ -110,9 +115,10 @@ def chroma_plot(data):
     coef_y = (0, *itemgetter("dnuy/dp", "dnuy/dp2", "dnuy/dp3")(data))
     chroma_x = np.polynomial.Polynomial(coef_x)
     chroma_y = np.polynomial.Polynomial(coef_y)
-    fig, ax = plt.subplots(figsize=(10, 4))
+    fig, ax = plt.subplots(figsize=FIG_SIZE)
     ax.plot(*chroma_x.linspace(domain=domain), label="nux")
     ax.plot(*chroma_y.linspace(domain=domain), label="nuy")
     ax.grid(color="#E5E7EB", linestyle="--", linewidth=1)
     ax.legend()
+    fig.tight_layout()
     return fig
