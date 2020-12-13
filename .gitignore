@@ -6,7 +6,9 @@ __pycache__/
 .mypy_cache/
 
 # output
-dist
+results
 _simulations
 _test_output
 
+# doit
+.doit*

@@ -1,4 +1,4 @@
 [submodule "lattices"]
 	path = lattices
-	url = git@github.com:nobeam/b3-lattices.git
+	url = git@github.com:nobeam/lattice-summaries-lattices.git
     branch = main
