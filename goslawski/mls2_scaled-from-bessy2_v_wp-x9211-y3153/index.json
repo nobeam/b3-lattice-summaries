@@ -1,0 +1,1 @@
+{"namespace": "goslawski", "name": "mls2_scaled-from-bessy2_v_wp-x9211-y3153", "machine": "mls2", "title": "mls2 based on bessy2", "authors": ["Goslawski"], "energy": 1200, "simulations": ["apace", "elegant", "madx"], "labels": [], "description": "Fully symmetric Design Lattice of the BESSY II storage ring\n(Here as reference and to test stuff!)\n"}
