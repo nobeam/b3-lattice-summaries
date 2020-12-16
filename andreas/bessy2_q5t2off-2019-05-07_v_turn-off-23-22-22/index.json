@@ -1,0 +1,1 @@
+{"namespace": "andreas", "name": "bessy2_q5t2off-2019-05-07_v_turn-off-23-22-22", "machine": "mls2", "title": "bessy2 stduser with turnend off q5t2 quad", "authors": ["Felix Andreas"], "energy": 1700, "simulations": ["apace", "elegant", "madx"], "labels": [], "description": "Best lattice of felix andreas master thesis\n"}
