@@ -4,7 +4,7 @@ from operator import itemgetter
 import numpy as np
 
 import matplotlib.pyplot as plt
-from eleganttools import SDDS, draw_elements, axis_labels
+from eleganttools import SDDS, draw_elements
 
 from . import simulation_elegant_dir, FIG_SIZE
 
@@ -29,19 +29,12 @@ def results(lattice, output_dir):
 
 
 def twiss_tables(data):
-    """Returns the relevant elgant data as dict"""
     return [
         [
             "Global Machine & Lattice Parameter",
             [
                 [
                     ["Energy / MeV", data["pCentral"] / 3913.90152459 * 2],
-                    ["Cell length / m", 0],
-                    ["Cell Angle / rad", 0],
-                    ["Cell Angle / degree	", 0],
-                    ["Circumference / m", 0],
-                ],
-                [
                     ["Natural Emittance / rad m", data["ex0"]],
                     ["U₀ / Mev", data["U0"]],
                     ["ɑ", data["alphac"]],
@@ -72,9 +65,9 @@ def twiss_tables(data):
                 ],
                 [
                     ["Qᵧ", data["nuy"]],
-                    ["dQₓ / dδ", data["dnuy/dp"]],
-                    ["d²Qₓ / dδ²", data["dnuy/dp2"]],
-                    ["d³Qₓ / dδ³", data["dnuy/dp3"]],
+                    ["dQᵧ / dδ", data["dnuy/dp"]],
+                    ["d²Qᵧ / dδ²", data["dnuy/dp2"]],
+                    ["d³Qᵧ / dδ³", data["dnuy/dp3"]],
                     ["βᵧ,ₘₐₓ / m", data["betayMax"]],
                     ["βᵧ,ₘᵢₙ / m", data["betayMin"]],
                     ["βᵧ,ₘₑₐₙ / m", data["betayAve"]],
@@ -94,17 +87,27 @@ def twiss_tables(data):
 def twiss_plot(data):
     from math import floor, log10
 
-    factor = np.max(data["betax"]) / np.max(data["betay"])
+    factor = np.max(data["betax"]) / np.max(data["etax"])
     eta_x_scale = 10 ** floor(log10(factor))
     fig, ax = plt.subplots(figsize=FIG_SIZE)
-    ax.plot(data["s"], data["betax"], "#EF4444")
-    ax.plot(data["s"], data["betay"], "#1D4ED8")
-    ax.plot(data["s"], eta_x_scale * data["etax"], "#10B981")
+    ax.plot(data["s"], data["betax"], "#EF4444", label=r"$\beta_x$ / m")
+    ax.plot(data["s"], data["betay"], "#1D4ED8", label=r"$\beta_y$ / m")
+    ax.plot(
+        data["s"],
+        eta_x_scale * data["etax"],
+        "#10B981",
+        label=rf"{eta_x_scale} $\eta_x$ / m",
+    )
     ax.grid(color="#E5E7EB", linestyle="--", linewidth=1)
-    x_min, x_max = 0, 20
-    draw_elements(ax, data)
-    axis_labels(ax, eta_x_scale=eta_x_scale)
-    ax.set_xlim(x_min, x_max)  # TODO: use cell length!
+    ax.set_xlim(0, 15)  # TODO: use cell length!
+    draw_elements(ax, data, labels=True)
+    plt.legend(
+        bbox_to_anchor=(0, 1.05, 1, 0.2),
+        loc="lower left",
+        mode="expand",
+        ncol=3,
+        frameon=False,
+    )
     fig.tight_layout()
     return fig
 

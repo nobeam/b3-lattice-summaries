@@ -6,13 +6,14 @@ authors = ["Felix Andreas <felix.andreas95@googlemail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
-apace = { path = "../../andreasfelix/apace", develop = true }
-eleganttools = { path = "../eleganttools", develop = true }
-# apace = { git = "https://github.com/andreasfelix/apace.git", branch = "master" }
-# eleganttools = { git = "https://github.com/nobeam/eleganttools.git", branch = "master" }
+# apace = { path = "../../andreasfelix/apace", develop = true }
+# eleganttools = { path = "../eleganttools", develop = true }
+# LatticeJSON = { path = "../../latticejson/", develop = true 
+apace = { git = "https://github.com/andreasfelix/apace.git", branch = "master" }
+eleganttools = { git = "https://github.com/nobeam/eleganttools.git", branch = "master" }
+LatticeJSON = "^0.1.5"
 matplotlib = "^3.3.3"
 numpy = "^1.19.4"
-Jinja2 = "^2.11.2"
 tomlkit = "^0.7.0"
 cpymad = "^1.6.2"
 doit = "^0.33.1"

@@ -31,31 +31,7 @@ def results(lattice, output_dir):
 
 
 def twiss_tables(twiss: ap.Twiss):
-    """Returns the relevant elgant data as dict"""
-    lattice = twiss.lattice
-    cell = twiss.lattice.children[0]
-    # do not count consecutive dipoles
-    bends = [
-        element
-        for element, _ in groupby(cell.sequence)
-        if isinstance(element, ap.Dipole)
-    ]
-    n_bends = sum(bend.angle > 0 for bend in bends)
-    n_reverse_bends = len(bends) - n_bends
     return [
-        [
-            "Global Machine & Lattice Parameter",
-            [
-                [
-                    ["Energy", twiss.energy],
-                    ["Lattice length", lattice.length],
-                    ["Cell length", cell.length],
-                    ["Number of cells", len(lattice.children)],
-                    ["Bends per cells", n_bends],
-                    ["Reverse bends per cells", n_reverse_bends],
-                ],
-            ],
-        ],
         [
             "Optical Functions",
             ["twiss.svg"],
@@ -101,7 +77,7 @@ def twiss_tables(twiss: ap.Twiss):
 
 def twiss_plot(twiss: ap.Twiss):
     from math import log10, floor
-    from apace.plot import plot_twiss, draw_elements, draw_sub_lattices
+    from apace.plot import plot_twiss, draw_elements, draw_sub_lattices, Color
 
     factor = np.max(twiss.beta_x) / np.max(twiss.eta_x)
     eta_x_scale = 10 ** floor(log10(factor))
@@ -109,11 +85,9 @@ def twiss_plot(twiss: ap.Twiss):
     fig, ax = plt.subplots(figsize=FIG_SIZE)
     ax.set_xlim(0, cell.length)
     plot_twiss(ax, twiss, scales={"eta_x": eta_x_scale})
-    draw_elements(ax, cell, labels=cell.length < 30)
-    draw_sub_lattices(ax, cell)
-    # draw_elements(ax, cell, labels=cell.length < 30, location="bottom")
-    # draw_sub_lattices(ax, cell, location="top")
-    ax.grid(axis="y", linestyle="--")
+    draw_elements(ax, cell, labels=len(cell.sequence) < 150)
+    draw_sub_lattices(ax, cell, labels=len(cell.children) < 5)
+    ax.grid(axis="y", color=Color.LIGHT_GRAY, linestyle="--", linewidth=1)
     plt.legend(
         bbox_to_anchor=(0, 1.05, 1, 0.2),
         loc="lower left",

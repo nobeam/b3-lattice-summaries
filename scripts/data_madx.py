@@ -34,20 +34,8 @@ def twiss_simulation(path, energy):
 
 
 def twiss_tables(twiss):
-    """Returns the relevant elgant data as dict"""
     twiss = twiss.summary
     return [
-        [
-            "Global Machine & Lattice Parameter",
-            [
-                [
-                    ["Energy", twiss.energy],
-                    ["Energy", twiss.energy],
-                    ["Cell length", twiss.length],
-                    ["Mom. compaction", twiss.alfa],
-                ],
-            ],
-        ],
         [
             "Optical Functions",
             ["twiss.svg"],
@@ -56,14 +44,21 @@ def twiss_tables(twiss):
             "Detailed Lattice Parameter",
             [
                 [
-                    ["Tune x", twiss.q1],
-                    ["Chromaticity x", twiss.dq1],
+                    ["Energy", twiss.energy],
+                    ["Mom. compaction", twiss.alfa],
+                    ["transition energy", twiss.gammatr],
+                ],
+                [
+                    ["tune x", twiss.q1],
+                    ["chromaticity x", twiss.dq1],
                     ["max beta x", twiss.betxmax],
+                    ["max eta x", twiss.dxmax],
                 ],
                 [
                     ["Tune y", twiss.q2],
                     ["Chromaticity y", twiss.dq2],
                     ["max beta y", twiss.betxmax],
+                    ["max eta y", twiss.dymax],
                 ],
             ],
         ],
