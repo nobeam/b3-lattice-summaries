@@ -1,5 +1,18 @@
 # Bessy III lattice summaries
 
+Install lattice-data dependencies into new virtual environment:
+
+```
+poetry install
+```
+
+Run all simulations and generate simulation output in directory `results`:
+
+```
+poetry run doit
+```
+
+#### OLD from here - update ####
 ## Add a new lattice
 
 The lattices are stored in the `lattices` directory. If you add an lattice, please add it to the `lattices/info.toml` file. Then create a pull requests.
