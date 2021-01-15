@@ -1,5 +1,39 @@
 # Bessy III lattice summaries
 
+Install lattice-data dependencies into new virtual environment:
+
+```
+poetry install
+```
+
+To generate data from lattices, the lattices are needed: set simlink to lattice-summaries-lattices
+
+```
+rm -rf lattices
+ln -s ../lattice-summaries-lattices lattices
+```
+
+You may to use this variable to use the right mpl backend
+
+```
+export MPLBACKEND=SVG
+```
+
+Run all simulations and generate simulation output in directory `results`:
+
+```
+poetry run doit
+```
+
+or for indiviual lattices
+
+```
+poetry run doit ...(TODO FelixAndreas)
+```
+
+
+###########
+## OLD from here - update ##
 ## Add a new lattice
 
 The lattices are stored in the `lattices` directory. If you add an lattice, please add it to the `lattices/info.toml` file. Then create a pull requests.
