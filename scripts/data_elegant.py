@@ -98,6 +98,7 @@ def twiss_plot(data):
         "#10B981",
         label=rf"{eta_x_scale} $\eta_x$ / m",
     )
+    ax.set_xlabel("position s / m")
     ax.grid(color="#E5E7EB", linestyle="--", linewidth=1)
     ax.set_xlim(0, 15)  # TODO: use cell length!
     draw_elements(ax, data, labels=True)
@@ -119,8 +120,9 @@ def chroma_plot(data):
     chroma_x = np.polynomial.Polynomial(coef_x)
     chroma_y = np.polynomial.Polynomial(coef_y)
     fig, ax = plt.subplots(figsize=FIG_SIZE)
-    ax.plot(*chroma_x.linspace(domain=domain), label="nux")
-    ax.plot(*chroma_y.linspace(domain=domain), label="nuy")
+    ax.plot(*chroma_x.linspace(domain=domain), label=r"$\nu_x$")
+    ax.plot(*chroma_y.linspace(domain=domain), label=r"$\nu_y$")
+    ax.set_xlabel(r"$\Delta p / p$")
     ax.grid(color="#E5E7EB", linestyle="--", linewidth=1)
     ax.legend()
     fig.tight_layout()
